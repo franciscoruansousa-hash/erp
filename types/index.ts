@@ -4,12 +4,22 @@ export interface Product {
   sku: string;
   category: string;
   price: number;
+  costPrice: number;
   stock: number;
+  lowStockThreshold: number;
   image?: string;
 }
 
 export interface CartItem extends Product {
   quantity: number;
+}
+
+export type PaymentMethod = 'card' | 'cash' | 'pix';
+
+export interface PaymentEntry {
+  method: PaymentMethod;
+  amount: number;
+  installments?: number;
 }
 
 export interface Sale {
@@ -18,6 +28,10 @@ export interface Sale {
   total: number;
   subtotal: number;
   tax: number;
-  paymentMethod: 'card' | 'cash';
+  discount?: number;
+  deliveryFee?: number;
+  payments: PaymentEntry[];
+  installments?: number;
+  installmentValue?: number;
   timestamp: string;
 }
